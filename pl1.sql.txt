@@ -1,0 +1,137 @@
+/*
+delimiter $
+create procedure ps1()
+begin
+	select "Hello World" as "Message";
+end $
+delimiter ;
+
+
+
+delimiter $
+create procedure ps2()
+begin
+	select "Hello dhanraj" as "Namaskar";
+end $
+delimiter ;
+
+
+
+
+
+drop procedure if exists ps3;
+delimiter $
+create procedure ps3()
+begin
+	declare x int default -1;
+	declare y int;
+	declare z int;
+	set @z:=100;
+	select x,y,z;
+end $
+delimiter ;
+
+
+drop procedure if exists ps4;
+delimiter $
+create procedure ps4(in x int,in y int,out z int)
+begin
+	set z := x + y;
+end $
+delimiter ;
+
+
+
+drop procedure if exists ps5;
+delimiter %
+create procedure ps5(in g int)
+begin
+	select ename,deptno,empno from emp where deptno=g;
+end %
+delimiter ;
+
+
+
+
+drop procedure if exists ps6;
+delimiter $
+create procedure ps6(in p int)
+begin
+	declare x bool default false;
+	select distinct true into x from emp where deptno = p;
+	if x then
+		select ename,empno,deptno from emp where p=deptno;
+	else
+		select "Not thge dept asshole";
+	end if;
+end $
+delimiter ;
+
+
+drop procedure if exists ps7;
+delimiter $
+create procedure ps7(p1 int,p2 varchar(20),p3 varchar(30),p4 varchar(20),p5 varchar(20))
+begin
+	declare exit handler for 1062 select "duolicate dept no";
+	declare exit handler for 1146 select "table is not there";
+	if p1 between 1 and 99 then
+		insert into dept values(p1,p2,p3,p4,p5);
+		select "record inserted into" r1;
+	else
+		select "not found";
+	end if;
+end $
+delimiter ;
+
+
+drop procedure if exists ps8;
+delimiter $
+create procedure ps8(para int)
+begin
+	declare flag bool default false;
+	select true into flag from dept where deptno=para;
+	if flag then
+		delete from dept where deptno=para;
+		select "record deleted bitch" as "message";
+	else
+		select "record not found";
+	end if;
+end $
+delimiter ;
+
+		
+
+
+drop procedure if exists ps9;
+delimiter $
+create procedure ps9(in para varchar(20))
+begin
+	declare x int;
+	select deptno into x from dept where dname=para;
+	if x is not null then
+		select ename,deptno from emp where deptno=x;
+	else
+		select "not found";
+	end if;
+end $
+delimiter ;
+
+ */
+ 
+ drop procedure if exists ps10;
+ delimiter $
+ create procedure ps10()
+ begin
+	declare x int default 0;
+	lp:loop
+		if x > 10 then
+			leave lp;
+		end if;
+		select x;
+		set x=x+1;
+	end loop lp;
+end $
+delimiter ;
+	
+	
+	
